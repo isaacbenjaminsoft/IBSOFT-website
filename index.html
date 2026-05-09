@@ -3,914 +3,655 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Isaac Benjamin — Trans Girl, Dev & Creator :3</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Isaac Benjamin :3</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --surface2: #181818;
-    --green: #5BCEFA;
-    --green-dim: #5BCEFA22;
-    --amber: #F5A9B8;
-    --text: #e5e5e5;
-    --muted: #777;
-    --border: #222;
-    --pixel: 4px;
-    --trans-blue: #5BCEFA;
-    --trans-pink: #F5A9B8;
-    --trans-white: #FFFFFF;
-    --trans-grad: linear-gradient(90deg, #5BCEFA, #F5A9B8, #ffffff, #F5A9B8, #5BCEFA);
-  }
-
-  .trans-text {
-    background: var(--trans-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .trans-flag {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    opacity: 0.18;
-    pointer-events: none;
-    animation: floatBlock linear infinite;
-  }
-  .trans-flag div { width: 100%; }
-
-  .tf-sm { width: 48px; }
-  .tf-sm div { height: 8px; }
-  .tf-md { width: 72px; }
-  .tf-md div { height: 12px; }
-
-  .tf1 { top: 12%; right: 6%; animation-duration: 11s; }
-  .tf2 { top: 55%; right: 20%; animation-duration: 14s; animation-delay: -5s; opacity: 0.1; }
-  .tf3 { top: 30%; right: 42%; animation-duration: 9s; animation-delay: -2s; opacity: 0.07; }
-
-  .pride-bar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg,
-      var(--trans-blue) 0%, var(--trans-blue) 20%,
-      var(--trans-pink) 20%, var(--trans-pink) 40%,
-      var(--trans-white) 40%, var(--trans-white) 60%,
-      var(--trans-pink) 60%, var(--trans-pink) 80%,
-      var(--trans-blue) 80%, var(--trans-blue) 100%
-    );
-    z-index: 9998;
-  }
-
-  .likes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin-top: 2rem;
-  }
-
-  .like-box {
-    background: var(--surface);
-    padding: 1.5rem 1.25rem;
-    text-align: center;
-    transition: background 0.2s;
-  }
-  .like-box:hover { background: var(--surface2); }
-
-  .like-emoji { font-size: 1.8rem; display: block; margin-bottom: 0.75rem; }
-
-  .like-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
-
-  .trans-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0px;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.15s;
-  }
-  .trans-badge span {
-    display: inline-block;
-    padding: 0.3rem 0.7rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #000;
-  }
-  .tb-blue { background: var(--trans-blue); }
-  .tb-pink { background: var(--trans-pink); }
-  .tb-white { background: var(--trans-white); }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-    cursor: crosshair;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.04) 2px,
-      rgba(0,0,0,0.04) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(74,222,128,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74,222,128,0.03) 1px, transparent 1px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 3rem;
-    border-bottom: 1px solid var(--border);
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.15em;
-    color: var(--green);
-    text-decoration: none;
-  }
-
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--green); }
-
-  .hero {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 3rem;
-    overflow: hidden;
-  }
-
-  .hero-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.3s;
-  }
-
-  .hero-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(5rem, 14vw, 13rem);
-    line-height: 0.9;
-    letter-spacing: 0.02em;
-    background: linear-gradient(135deg, #5BCEFA 0%, #F5A9B8 45%, #ffffff 60%, #F5A9B8 75%, #5BCEFA 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-
-  .hero-name span {
-    display: inline-block;
-    position: relative;
-  }
-
-  .hero-name span::after {
-    content: '█';
-    font-size: 0.5em;
-    vertical-align: top;
-    color: #5BCEFA;
-    -webkit-text-fill-color: #5BCEFA;
-    animation: blink 1s steps(1) infinite;
-  }
-
-  .hero-desc {
-    margin-top: 2.5rem;
-    font-size: 1rem;
-    color: var(--muted);
-    max-width: 520px;
-    line-height: 1.8;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.8s;
-  }
-
-  .hero-cta {
-    margin-top: 3rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 1s;
-  }
-
-  .btn {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.85rem 2rem;
-    border: 1px solid;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .btn-primary {
-    background: var(--green);
-    color: #000;
-    border-color: var(--green);
-    font-weight: 700;
-  }
-  .btn-primary:hover { background: #6ee7a0; border-color: #6ee7a0; }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border-color: var(--border);
-  }
-  .btn-outline:hover { border-color: var(--green); color: var(--green); }
-
-  .pixel-float {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background: var(--green);
-    opacity: 0.08;
-    animation: floatBlock linear infinite;
-  }
-  .pixel-float:nth-child(1) { right: 12%; top: 20%; animation-duration: 8s; width: 12px; height: 12px; }
-  .pixel-float:nth-child(2) { right: 25%; top: 40%; animation-duration: 12s; animation-delay: -3s; opacity: 0.05; }
-  .pixel-float:nth-child(3) { right: 8%; top: 60%; animation-duration: 10s; animation-delay: -6s; width: 36px; height: 36px; opacity: 0.04; }
-  .pixel-float:nth-child(4) { right: 35%; top: 15%; animation-duration: 14s; animation-delay: -2s; width: 8px; height: 8px; opacity: 0.1; }
-  .pixel-float:nth-child(5) { right: 18%; top: 75%; animation-duration: 9s; animation-delay: -4s; width: 16px; height: 16px; }
-
-  .hero-side-text {
-    position: absolute;
-    right: 3rem;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    transform-origin: right center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    letter-spacing: 0.3em;
-    color: rgba(255,255,255,0.03);
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 6rem 3rem;
-  }
-
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .section-label::after {
-    content: '';
-    height: 1px;
-    width: 60px;
-    background: var(--green);
-    opacity: 0.4;
-    display: block;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    letter-spacing: 0.03em;
-    line-height: 1;
-    background: linear-gradient(90deg, #5BCEFA, #F5A9B8, #ffffff, #F5A9B8, #5BCEFA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 3rem;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5px;
-  }
-
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--green);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
-
-  .project-card:hover { border-color: #333; transform: translateY(-2px); }
-  .project-card:hover::before { transform: scaleX(1); }
-
-  .project-icon {
-    width: 44px;
-    height: 44px;
-    background: var(--green-dim);
-    border: 1px solid rgba(74,222,128,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .project-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.05em;
-    background: linear-gradient(90deg, #5BCEFA, #F5A9B8, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .project-desc {
-    font-size: 0.875rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .project-arrow {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    font-size: 1.2rem;
-    color: var(--muted);
-    transition: color 0.2s, transform 0.2s;
-  }
-  .project-card:hover .project-arrow { color: var(--green); transform: translate(3px, -3px); }
-
-  .ibsl-block {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--green);
-    padding: 2.5rem 3rem;
-    margin: 2rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .ibsl-block::after {
-    content: 'IBSL';
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 6rem;
-    color: rgba(74,222,128,0.05);
-    pointer-events: none;
-  }
-
-  .ibsl-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 0.05em;
-    color: var(--green);
-    margin-bottom: 0.75rem;
-  }
-
-  .ibsl-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--amber);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .ibsl-desc {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.8;
-    max-width: 600px;
-  }
-
-  .pill-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .pill {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.85rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    background: var(--surface2);
-  }
-
-  .pill.green { border-color: rgba(74,222,128,0.3); color: var(--green); background: rgba(74,222,128,0.07); }
-  .pill.red { border-color: rgba(248,113,113,0.3); color: #f87171; background: rgba(248,113,113,0.07); }
-
-  .yt-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0;
-    overflow: hidden;
-    transition: border-color 0.3s;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .yt-card:hover { border-color: #ff4444; }
-
-  .yt-stripe {
-    width: 4px;
-    background: #ff4444;
-  }
-
-  .yt-body { padding: 2.5rem; }
-
-  .yt-handle {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    color: #ff4444;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-    display: block;
-  }
-
-  .yt-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 0.03em;
-    color: #fff;
-    margin-bottom: 0.75rem;
-  }
-
-  .yt-desc {
-    font-size: 0.875rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .yt-sub-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #ff4444;
-    border: 1px solid rgba(255,68,68,0.3);
-    padding: 0.6rem 1.25rem;
-    transition: all 0.2s;
-  }
-
-  .yt-card:hover .yt-sub-btn { background: rgba(255,68,68,0.1); }
-
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin: 4rem 0;
-  }
-
-  .stat-box {
-    background: var(--surface);
-    padding: 2rem 1.5rem;
-    text-align: center;
-  }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    color: var(--green);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 0.5rem;
-  }
-
-  footer {
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid var(--border);
-    padding: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: gap;
-  }
-
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.07);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .footer-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--green); }
-
-  .footer-copy {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: #333;
-    letter-spacing: 0.1em;
-  }
-
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 0;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  @keyframes floatBlock {
-    0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-40px) rotate(45deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  .terminal-line {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--green);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 0.75rem 1.25rem;
-    margin-top: 2rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 1.2s;
-  }
-  .terminal-line .prompt { color: var(--muted); }
-  .terminal-line .cursor {
-    width: 8px; height: 14px;
-    background: var(--green);
-    animation: blink 1s steps(1) infinite;
-    display: inline-block;
-  }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080810;
+  --surface:#0f0f1a;
+  --surface2:#161622;
+  --blue:#5BCEFA;
+  --pink:#F5A9B8;
+  --white:#FFFFFF;
+  --text:#e8e8f0;
+  --muted:#666680;
+  --border:#1e1e2e;
+  --tg:linear-gradient(90deg,#5BCEFA,#F5A9B8,#fff,#F5A9B8,#5BCEFA);
+  --tgd:linear-gradient(135deg,#5BCEFA 0%,#F5A9B8 40%,#fff 55%,#F5A9B8 75%,#5BCEFA 100%);
+}
+html{overflow:hidden;height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;height:100%;overflow:hidden;cursor:crosshair}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.025) 3px,rgba(0,0,0,0.025) 4px);pointer-events:none;z-index:9999}
+.pride-bar{position:fixed;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#5BCEFA 0%,#5BCEFA 20%,#F5A9B8 20%,#F5A9B8 40%,#fff 40%,#fff 60%,#F5A9B8 60%,#F5A9B8 80%,#5BCEFA 80%);z-index:10000}
+canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+nav{position:fixed;top:4px;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(8,8,16,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.2em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+.nav-links{display:flex;gap:1.4rem;list-style:none}
+.nav-links a{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.12em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color 0.2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--tg);transform:scaleX(0);transition:transform 0.3s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+.scroll-indicator{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:0.5rem;align-items:center}
+.scroll-dot{width:5px;height:5px;border:1px solid #333;border-radius:50%;cursor:pointer;transition:all 0.3s}
+.scroll-dot.active{background:var(--pink);border-color:var(--pink);transform:scale(1.6)}
+.scroll-dot-label{display:none}
+
+#container{height:100vh;overflow:hidden;position:relative;z-index:1}
+.page{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:6.5rem 3rem 2.5rem;opacity:0;transform:translateY(60px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);pointer-events:none;overflow:hidden}
+.page.active{opacity:1;transform:translateY(0);pointer-events:all}
+
+.tg{background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tgd{background:var(--tgd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.sl{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:0.65rem;display:flex;align-items:center;gap:0.75rem}
+.sl::before{content:'//'}
+.sl::after{content:'';height:1px;width:45px;background:linear-gradient(90deg,var(--blue),transparent)}
+
+.big-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,6.5vw,5.5rem);letter-spacing:0.03em;line-height:1;margin-bottom:1.25rem}
+.gl{height:1px;background:var(--tg);margin-bottom:1.75rem;opacity:0.35;width:110px}
+
+.trans-badge{display:inline-flex;align-items:center;margin-bottom:1.75rem}
+.trans-badge span{padding:0.22rem 0.65rem;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;color:#000}
+.tb-blue{background:var(--blue)}.tb-pink{background:var(--pink)}.tb-white{background:var(--white)}
+
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,12vw,11rem);line-height:0.88;letter-spacing:0.02em;background:var(--tgd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hcursor{display:inline-block;width:0.08em;height:0.82em;background:var(--blue);vertical-align:middle;margin-left:0.05em;animation:blink 1s steps(1) infinite}
+.hero-sub{margin-top:1.5rem;font-size:0.9rem;color:var(--muted);max-width:480px;line-height:1.9}
+.hero-cta{margin-top:2rem;display:flex;gap:0.85rem;flex-wrap:wrap}
+
+.btn{font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:0.8rem 1.85rem;border:1px solid;transition:all 0.25s;display:inline-flex;align-items:center;gap:0.5rem;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:var(--tg);opacity:0;transition:opacity 0.25s}
+.btn-primary{background:transparent;color:var(--blue);border-color:var(--blue)}
+.btn-primary:hover{color:#000;border-color:transparent}
+.btn-primary:hover::before{opacity:1}
+.btn span{position:relative;z-index:1}
+.btn-outline{background:transparent;color:var(--muted);border-color:var(--border)}
+.btn-outline:hover{border-color:var(--pink);color:var(--pink)}
+.btn-pol{background:transparent;color:var(--pink);border-color:var(--pink)}
+.btn-pol:hover{background:var(--pink);color:#000}
+
+.tline{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--blue);background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--pink);padding:0.65rem 1.1rem;margin-top:1.5rem;display:inline-flex;align-items:center;gap:0.7rem;width:fit-content}
+.tline .p{color:var(--muted)}
+.tcursor{width:7px;height:13px;background:var(--blue);animation:blink 1s steps(1) infinite;display:inline-block}
+
+.blahaj-wrap{position:absolute;right:6%;top:50%;transform:translateY(-50%);animation:sharkFloat 6s ease-in-out infinite;pointer-events:none}
+.flag-scene{position:absolute;pointer-events:none}
+.fs1{right:13%;top:13%;animation:floatBlock 10s ease-in-out infinite}
+.fs2{right:2%;top:37%;animation:floatBlock 13s ease-in-out infinite;animation-delay:-4s;opacity:0.5}
+.fs3{left:3.5%;top:17%;animation:floatBlock 11s ease-in-out infinite;animation-delay:-7s;opacity:0.3}
+.mini-flag{display:flex;flex-direction:column;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 20px rgba(91,206,250,0.1)}
+.mini-flag div{width:100%}
+.mf-sm{width:48px}.mf-sm div{height:8px}
+.mf-lg{width:78px}.mf-lg div{height:13px}
+.mf-xl{width:108px}.mf-xl div{height:17px}
+.side-text{position:absolute;right:2.5rem;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-family:'Bebas Neue',sans-serif;font-size:5rem;letter-spacing:0.3em;pointer-events:none;white-space:nowrap;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.035}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2rem}
+.stat-box{background:var(--surface);padding:1.4rem 1rem;text-align:center;transition:background 0.2s}
+.stat-box:hover{background:var(--surface2)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.stat-label{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;margin-top:0.3rem}
+
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--border)}
+.project-card{background:var(--surface);padding:2rem;position:relative;overflow:hidden;transition:background 0.3s,transform 0.3s;text-decoration:none;color:inherit;display:block}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--tg);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.project-card:hover{background:var(--surface2);transform:translateY(-2px)}
+.project-card:hover::before{transform:scaleX(1)}
+.project-icon{width:40px;height:40px;background:rgba(91,206,250,0.07);border:1px solid rgba(91,206,250,0.14);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:1.25rem}
+.project-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.35rem}
+.project-tag{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--pink);margin-bottom:0.85rem;display:block}
+.project-desc{font-size:0.83rem;color:var(--muted);line-height:1.7}
+.project-arrow{position:absolute;bottom:1.5rem;right:1.5rem;font-size:1rem;color:var(--muted);transition:color 0.2s,transform 0.2s}
+.project-card:hover .project-arrow{color:var(--pink);transform:translate(3px,-3px)}
+
+.ibsl-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--pink);padding:2.25rem 2.75rem;position:relative;overflow:hidden}
+.ibsl-block::after{content:'IBSL';position:absolute;right:1.25rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:6.5rem;color:rgba(245,169,184,0.035);pointer-events:none}
+.ibsl-title{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:0.05em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.45rem}
+.ibsl-sub{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.2em;color:var(--pink);text-transform:uppercase;margin-bottom:0.9rem}
+.ibsl-desc{font-size:0.84rem;color:var(--muted);line-height:1.8;max-width:580px}
+.pill-row{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:1.35rem}
+.pill{font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.75rem;border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
+.pill.g{border-color:rgba(91,206,250,0.3);color:var(--blue);background:rgba(91,206,250,0.06)}
+.pill.r{border-color:rgba(245,169,184,0.3);color:var(--pink);background:rgba(245,169,184,0.06)}
+
+.yt-card{background:var(--surface);border:1px solid var(--border);display:grid;grid-template-columns:4px 1fr;text-decoration:none;color:inherit;transition:border-color 0.3s}
+.yt-card:hover{border-color:#ff5555}
+.yt-stripe{background:#ff4444}
+.yt-body{padding:2rem 2.25rem}
+.yt-handle{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;color:#ff6666;text-transform:uppercase;margin-bottom:0.65rem;display:block}
+.yt-title{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;letter-spacing:0.03em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.65rem}
+.yt-desc{font-size:0.84rem;color:var(--muted);line-height:1.7}
+.yt-btn{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.35rem;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#ff6666;border:1px solid rgba(255,68,68,0.3);padding:0.55rem 1.1rem;transition:all 0.2s}
+.yt-card:hover .yt-btn{background:rgba(255,68,68,0.08)}
+
+.likes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.like-box{background:var(--surface);padding:1.25rem 0.9rem;text-align:center;transition:background 0.2s}
+.like-box:hover{background:var(--surface2)}
+.like-emoji{font-size:1.4rem;display:block;margin-bottom:0.5rem}
+.like-label{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.1em;color:var(--muted)}
+
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0.8rem 0;margin-top:1.5rem}
+.marquee-track{display:flex;gap:3rem;animation:marquee 22s linear infinite;white-space:nowrap}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.15em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0}
+
+.tr-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7.5vw,7rem);line-height:0.88;letter-spacing:0.02em;background:var(--tgd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.75rem}
+.tr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.tr-card{background:var(--surface);padding:1.6rem;position:relative;overflow:hidden;transition:background 0.2s}
+.tr-card:hover{background:var(--surface2)}
+.tr-card-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.13;position:absolute;top:0.5rem;right:1rem;line-height:1}
+.tr-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.05em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem}
+.tr-card-text{font-size:0.78rem;color:var(--muted);line-height:1.75}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem}
+.about-card{background:var(--surface);padding:1.75rem;transition:background 0.2s}
+.about-card:hover{background:var(--surface2)}
+.about-card-label{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--pink);margin-bottom:0.5rem}
+.about-card-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
+.about-card-sub{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;line-height:1.6}
+
+.pol-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);padding:2.25rem 2.75rem;position:relative;overflow:hidden;margin-bottom:1.75rem}
+.pol-block::after{content:'MP';position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:8rem;color:rgba(91,206,250,0.04);pointer-events:none}
+.pol-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.04em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem}
+.pol-sub{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.2em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem}
+.pol-desc{font-size:0.85rem;color:var(--muted);line-height:1.85;max-width:640px}
+.pol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.pol-card{background:var(--surface);padding:1.5rem 1.4rem;transition:background 0.2s;position:relative;overflow:hidden}
+.pol-card:hover{background:var(--surface2)}
+.pol-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--tg);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.pol-card:hover::before{transform:scaleX(1)}
+.pol-card-icon{font-size:1.5rem;margin-bottom:0.75rem;display:block}
+.pol-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.4rem;letter-spacing:0.04em}
+.pol-card-text{font-size:0.76rem;color:var(--muted);line-height:1.7}
+
+.eq-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);line-height:0.9;letter-spacing:0.02em;background:var(--tgd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.75rem}
+.eq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem}
+.eq-card{background:var(--surface);padding:1.5rem 1.2rem;text-align:center;transition:background 0.2s;position:relative}
+.eq-card:hover{background:var(--surface2)}
+.eq-icon{font-size:1.75rem;display:block;margin-bottom:0.6rem}
+.eq-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:0.04em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem}
+.eq-text{font-size:0.72rem;color:var(--muted);line-height:1.6}
+.eq-statement{background:var(--surface);border:1px solid var(--border);padding:1.75rem 2rem;border-image:linear-gradient(90deg,#5BCEFA,#F5A9B8,#fff,#F5A9B8,#5BCEFA) 1;font-size:0.88rem;color:var(--text);line-height:1.85;font-style:italic;position:relative}
+.eq-statement::before{content:'"';font-family:'Bebas Neue',sans-serif;font-size:4rem;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:absolute;top:-0.5rem;left:1rem;line-height:1;opacity:0.4}
+
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.75rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:var(--bg)}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;letter-spacing:0.15em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-links{display:flex;gap:1.5rem;list-style:none}
+.footer-links a{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.footer-links a:hover{color:var(--pink)}
+.footer-copy{font-family:'Space Mono',monospace;font-size:0.54rem;color:#252535;letter-spacing:0.08em}
+
+.page-counter{position:fixed;bottom:1.75rem;left:2.5rem;z-index:500;font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.2em}
+.page-counter .n{background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.quote-block{border-left:2px solid var(--pink);padding-left:1.25rem;margin:1.25rem 0}
+.quote-block p{font-size:0.85rem;color:var(--text);line-height:1.8;font-style:italic}
+.quote-block cite{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--pink);letter-spacing:0.1em;margin-top:0.5rem;display:block}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes floatBlock{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(2.5deg)}}
+@keyframes sharkFloat{0%,100%{transform:translateY(-50%) rotate(-3deg)}50%{transform:translateY(calc(-50% - 15px)) rotate(3deg)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 </style>
 </head>
 <body>
-
 <div class="pride-bar"></div>
+<canvas id="bg"></canvas>
 
 <nav>
   <a class="nav-logo" href="#">IB/SOFT</a>
   <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#youtube">YouTube</a></li>
-    <li><a href="#about">About :3</a></li>
-    <li><a href="https://github.com/isaacbenjaminsoft" target="_blank">GitHub ↗</a></li>
+    <li><a href="#" onclick="goTo(0);return false">Home</a></li>
+    <li><a href="#" onclick="goTo(1);return false">About Me</a></li>
+    <li><a href="#" onclick="goTo(2);return false">Projects</a></li>
+    <li><a href="#" onclick="goTo(3);return false">License</a></li>
+    <li><a href="#" onclick="goTo(4);return false">YouTube</a></li>
+    <li><a href="#" onclick="goTo(5);return false">Politics</a></li>
+    <li><a href="#" onclick="goTo(6);return false">Equal Rights</a></li>
+    <li><a href="#" onclick="goTo(7);return false">Trans Rights</a></li>
+    <li><a href="https://github.com/isaacbenjaminsoft" target="_blank">GitHub</a></li>
   </ul>
 </nav>
 
-<section class="hero">
-  <div class="pixel-float"></div>
-  <div class="pixel-float"></div>
-  <div class="pixel-float"></div>
-  <div class="pixel-float"></div>
-  <div class="pixel-float"></div>
+<div class="scroll-indicator" id="dots"></div>
+<div class="page-counter"><span class="n" id="cur">01</span> / 08</div>
 
-  <div class="trans-flag tf-sm tf1">
-    <div style="background:var(--trans-blue)"></div>
-    <div style="background:var(--trans-pink)"></div>
-    <div style="background:var(--trans-white)"></div>
-    <div style="background:var(--trans-pink)"></div>
-    <div style="background:var(--trans-blue)"></div>
-  </div>
-  <div class="trans-flag tf-md tf2">
-    <div style="background:var(--trans-blue)"></div>
-    <div style="background:var(--trans-pink)"></div>
-    <div style="background:var(--trans-white)"></div>
-    <div style="background:var(--trans-pink)"></div>
-    <div style="background:var(--trans-blue)"></div>
-  </div>
-  <div class="trans-flag tf-sm tf3">
-    <div style="background:var(--trans-blue)"></div>
-    <div style="background:var(--trans-pink)"></div>
-    <div style="background:var(--trans-white)"></div>
-    <div style="background:var(--trans-pink)"></div>
-    <div style="background:var(--trans-blue)"></div>
+<div id="container">
+
+  <div class="page active" id="p0">
+    <div class="flag-scene fs1">
+      <div class="mini-flag mf-lg"><div style="background:var(--blue)"></div><div style="background:var(--pink)"></div><div style="background:var(--white)"></div><div style="background:var(--pink)"></div><div style="background:var(--blue)"></div></div>
+    </div>
+    <div class="flag-scene fs2">
+      <div class="mini-flag mf-sm"><div style="background:var(--blue)"></div><div style="background:var(--pink)"></div><div style="background:var(--white)"></div><div style="background:var(--pink)"></div><div style="background:var(--blue)"></div></div>
+    </div>
+    <div class="flag-scene fs3">
+      <div class="mini-flag mf-xl"><div style="background:var(--blue)"></div><div style="background:var(--pink)"></div><div style="background:var(--white)"></div><div style="background:var(--pink)"></div><div style="background:var(--blue)"></div></div>
+    </div>
+
+    <div class="blahaj-wrap">
+      <div style="width:230px; height:165px; border:2px dashed var(--blue); border-radius:10px; display:flex; align-items:center; justify-content:center; color:var(--blue); font-family:'Space Mono',monospace; font-size:0.7rem; text-align:center; background:rgba(91,206,250,0.1);">
+        [ INSERT BLAHAJ HERE ]
+      </div>
+    </div>
+
+    <div class="side-text">DEVELOPER</div>
+
+    <div class="trans-badge">
+      <span class="tb-blue">she</span><span class="tb-pink">her</span><span class="tb-white">trans girl</span><span class="tb-pink">:3</span><span class="tb-blue">future MP</span>
+    </div>
+
+    <div class="sl">Isaac Benjamin</div>
+    <h1 class="hero-name">ISAAC<br>BENJAMIN<span class="hcursor"></span></h1>
+
+    <p class="hero-sub">Trans girl. Indie developer. Aspiring UK politician. From Scotland. Open-source advocate :3<br>Writing code on Linux, fighting for equal rights, gaming hard, hugging blahaj.</p>
+
+    <div class="hero-cta">
+      <a href="#" onclick="goTo(1);return false" class="btn btn-primary"><span>About Me</span></a>
+      <a href="#" onclick="goTo(5);return false" class="btn btn-pol"><span>My Politics</span></a>
+      <a href="https://github.com/isaacbenjaminsoft" target="_blank" class="btn btn-outline">GitHub</a>
+    </div>
+
+    <div class="tline">
+      <span class="p">$</span>
+      <span>whoami</span>
+      <span class="tcursor"></span>
+    </div>
   </div>
 
-  <div class="hero-side-text">DEVELOPER</div>
+  <div class="page" id="p1">
+    <div class="sl">The person behind the keyboard</div>
+    <h2 class="big-title tg">About Me</h2>
+    <div class="gl"></div>
 
-  <div class="trans-badge">
-    <span class="tb-blue">she</span><span class="tb-pink">her</span><span class="tb-white">trans girl</span><span class="tb-pink">:3</span><span class="tb-blue">dev</span>
-  </div>
-  <p class="hero-tag">// Isaac Benjamin Software</p>
-  <h1 class="hero-name">ISAAC<br><span>BENJAMIN</span></h1>
-  <p class="hero-desc">
-    Trans girl, indie developer and open-source advocate :3
-    Building software free from corporate capture writing code on Linux, playing games, and hugging blahaj.
-  </p>
-  <div class="hero-cta">
-    <a href="#projects" class="btn btn-primary">View Projects</a>
-    <a href="https://www.youtube.com/@IzakPlayz" target="_blank" class="btn btn-outline">Watch on YouTube ↗</a>
-  </div>
-  <div class="terminal-line">
-    <span class="prompt">$</span>
-    <span>cat IBSL.md</span>
-    <span class="cursor"></span>
-  </div>
-</section>
+    <div class="two-col">
+      <div>
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="about-card-label">Age</div>
+            <div class="about-card-val">Young Adult</div>
+            <div class="about-card-sub">Just a young adult :3 not telling you exactly</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Nationality</div>
+            <div class="about-card-val">British / Scottish</div>
+            <div class="about-card-sub">Proud to be from Scotland and a proud citizen of the UK.</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Identity</div>
+            <div class="about-card-val">Trans Girl :3</div>
+            <div class="about-card-sub">She/her. Trans and proud. Not up for debate.</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Location</div>
+            <div class="about-card-val">UK / Europe</div>
+            <div class="about-card-sub">Living In England, focused on the future of the whole UK.</div>
+          </div>
+        </div>
+      </div>
 
-<hr class="divider">
+      <div>
+        <div class="quote-block">
+          <p>I am a young adult trans girl from England who loves coding on Linux, playing games and cuddling blahaj. I want to make the world a fairer place, starting with tech and ending in parliament. :3</p>
+          <cite>Isaac Benjamin, probably at 2am writing code</cite>
+        </div>
 
-<div class="stats-row reveal" id="projects">
-  <div class="stat-box">
-    <div class="stat-num">2</div>
-    <div class="stat-label">Repositories</div>
+        <div class="tline" style="margin-top:1.5rem">
+          <span class="p">$</span>
+          <span>cat /etc/hostname</span>
+          <span class="tcursor"></span>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--blue);background:var(--surface);border:1px solid var(--border);padding:0.6rem 1rem;margin-top:0.5rem;display:inline-flex">
+          scotland-laptop.local
+        </div>
+
+        <div class="marquee-wrap" style="margin-top:1.5rem">
+          <div class="marquee-track">
+            <span class="marquee-item">british scot</span>
+            <span class="marquee-item">she/her</span>
+            <span class="marquee-item">trans girl</span>
+            <span class="marquee-item">linux user</span>
+            <span class="marquee-item">aspiring MP</span>
+            <span class="marquee-item">blahaj haver :3</span>
+            <span class="marquee-item">british scot</span>
+            <span class="marquee-item">she/her</span>
+            <span class="marquee-item">trans girl</span>
+            <span class="marquee-item">linux user</span>
+            <span class="marquee-item">aspiring MP</span>
+            <span class="marquee-item">blahaj haver :3</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="stat-box">
-    <div class="stat-num">1</div>
-    <div class="stat-label">Stars earned</div>
+
+  <div class="page" id="p2">
+    <div class="sl">Open source work</div>
+    <h2 class="big-title tg">Projects</h2>
+    <div class="gl"></div>
+
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">Repositories</div></div>
+      <div class="stat-box"><div class="stat-num">1</div><div class="stat-label">Stars</div></div>
+      <div class="stat-box"><div class="stat-num">2026</div><div class="stat-label">Founded</div></div>
+      <div class="stat-box"><div class="stat-num">🦈</div><div class="stat-label">Blahaj owned</div></div>
+    </div>
+
+    <div class="projects-grid">
+      <a class="project-card" href="https://github.com/isaacbenjaminsoft/IBSL" target="_blank">
+        <div class="project-icon">📜</div>
+        <div class="project-name">IBSL</div>
+        <span class="project-tag">Software License</span>
+        <p class="project-desc">The Isaac-Benjamin Software License. Anti-corporate, anti-AI-scraping, source-available. Built to protect indie devs, modders and community creators.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a class="project-card" href="https://github.com/isaacbenjaminsoft" target="_blank">
+        <div class="project-icon">🛠</div>
+        <div class="project-name">More Coming :3</div>
+        <span class="project-tag">In Development</span>
+        <p class="project-desc">New repositories are on the way. Watch the GitHub profile to be notified when new work drops. Good things take time.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+    </div>
   </div>
-  <div class="stat-box">
-    <div class="stat-num">2026</div>
-    <div class="stat-label">Founded</div>
+
+  <div class="page" id="p3">
+    <div class="sl">The License</div>
+    <h2 class="big-title tg">IBSL v1.0</h2>
+    <div class="gl"></div>
+
+    <div class="ibsl-block">
+      <div class="ibsl-sub">Anti-Corporate · Anti-AI-Scraping · Source-Available</div>
+      <div class="ibsl-title">Isaac-Benjamin Software License</div>
+      <p class="ibsl-desc">A license written for the people who actually build things. Indie devs, modders, content creators and community projects. Friendly to humans, hostile to exploitation. Corporate entities, AI scrapers and surveillance systems are explicitly unwelcome :3</p>
+      <div class="pill-row">
+        <span class="pill g">Use freely</span>
+        <span class="pill g">Modify</span>
+        <span class="pill g">Monetize content</span>
+        <span class="pill g">Fork and share</span>
+        <span class="pill r">AI training</span>
+        <span class="pill r">Corporate use</span>
+        <span class="pill r">Data scraping</span>
+      </div>
+    </div>
+
+    <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);margin-top:1.5rem;line-height:2">
+      Licensing enquiries: <a href="mailto:isaacbenjaminsoft@protonmail.com" style="color:var(--pink);text-decoration:none">isaacbenjaminsoft@protonmail.com</a>
+    </p>
   </div>
-  <div class="stat-box">
-    <div class="stat-num">🦈</div>
-    <div class="stat-label">Blahaj owned</div>
+
+  <div class="page" id="p4">
+    <div class="sl">Content creation</div>
+    <h2 class="big-title tg">YouTube + Interests</h2>
+    <div class="gl"></div>
+
+    <div class="two-col">
+      <a class="yt-card" href="https://www.youtube.com/@IzakPlayz" target="_blank">
+        <div class="yt-stripe"></div>
+        <div class="yt-body">
+          <span class="yt-handle">@IzakPlayz</span>
+          <div class="yt-title">IzakPlayz</div>
+          <p class="yt-desc">Gaming content made with genuine passion :3 No corporate slop, no chasing algorithms. Just a trans girl doing what she loves.</p>
+          <span class="yt-btn">Watch now</span>
+        </div>
+      </a>
+
+      <div>
+        <div class="likes-grid">
+          <div class="like-box"><span class="like-emoji">⛏️</span><span class="like-label">Minecraft</span></div>
+          <div class="like-box"><span class="like-emoji">🔫</span><span class="like-label">GTA</span></div>
+          <div class="like-box"><span class="like-emoji">🎯</span><span class="like-label">Hitman</span></div>
+          <div class="like-box"><span class="like-emoji">🦈</span><span class="like-label">Blahaj :3</span></div>
+          <div class="like-box"><span class="like-emoji">💻</span><span class="like-label">Coding</span></div>
+          <div class="like-box"><span class="like-emoji">🐧</span><span class="like-label">Linux</span></div>
+          <div class="like-box"><span class="like-emoji">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="like-label">Scotland</span></div>
+          <div class="like-box"><span class="like-emoji">🏳️‍⚧️</span><span class="like-label">Trans pride</span></div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="page" id="p5">
+    <div class="sl">My political ambitions</div>
+    <h2 class="big-title tg">Future UK Politician</h2>
+    <div class="gl"></div>
+
+    <div class="pol-block">
+      <div class="pol-sub">Aspiring Member of Parliament · UK Politics</div>
+      <div class="pol-title">I Want to Change Things</div>
+      <p class="pol-desc">I am a young adult from England with a plan. I plan to enter UK politics and one day become a Member of Parliament. Not to play the game, but to change it. I want to be the kind of politician this country actually needs: young, queer, working class, honest, and fighting for everyone who gets left behind. Trans rights, digital rights, equality, housing, mental health. All of it. If nobody else is going to say it, I will :3 I am firmly against extremism, fascism, Marxist-Leninism, and Stalinism. Economically, while I am at my core a capitalist, we must not be closed minded. We need to learn from socialism to build a fairer system, just as socialism needs to learn from capitalism.</p>
+    </div>
+
+    <div class="pol-grid">
+      <div class="pol-card">
+        <span class="pol-card-icon">🏛️</span>
+        <div class="pol-card-title">Heading to Westminster</div>
+        <p class="pol-card-text">I want a seat at the table in the UK Parliament where decisions get made. Every part of the UK, from Scotland to the South of England, deserves strong, honest representation.</p>
+      </div>
+      <div class="pol-card">
+        <span class="pol-card-icon">🏳️‍⚧️</span>
+        <div class="pol-card-title">Trans Rights in Law</div>
+        <p class="pol-card-text">I would fight to enshrine trans rights into UK law. Full legal recognition, access to healthcare, and protection from discrimination. No compromises.</p>
+      </div>
+      <div class="pol-card">
+        <span class="pol-card-icon">💻</span>
+        <div class="pol-card-title">Digital Rights</div>
+        <p class="pol-card-text">Tech should serve people, not corporations. I would push for open-source government systems, data privacy legislation, and fair AI regulation.</p>
+      </div>
+      <div class="pol-card">
+        <span class="pol-card-icon">🌍</span>
+        <div class="pol-card-title">Equality for All</div>
+        <p class="pol-card-text">Race, gender, sexuality, disability, class. Every axis of inequality matters. I believe in intersectional politics that lifts everyone up together.</p>
+      </div>
+      <div class="pol-card">
+        <span class="pol-card-icon">🏠</span>
+        <div class="pol-card-title">Housing and Poverty</div>
+        <p class="pol-card-text">Young people and working class communities are being priced out of life. Affordable housing, a real living wage and scrapping food bank culture are non-negotiables.</p>
+      </div>
+      <div class="pol-card">
+        <span class="pol-card-icon">🧠</span>
+        <div class="pol-card-title">Mental Health</div>
+        <p class="pol-card-text">The NHS mental health system is broken. CAMHS waiting lists are a scandal (Metaphorically) And most people dont get the support they need until its too late or not worth it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="p6">
+    <div class="sl">What I stand for</div>
+    <div class="eq-big">TOTAL<br>EQUAL<br>RIGHTS</div>
+
+    <div class="eq-grid">
+      <div class="eq-card">
+        <span class="eq-icon">🏳️‍⚧️</span>
+        <div class="eq-title">Trans and Non-Binary</div>
+        <p class="eq-text">Full legal recognition, healthcare access, and zero tolerance for discrimination in any form.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">🏳️‍🌈</span>
+        <div class="eq-title">LGBTQ+</div>
+        <p class="eq-text">Every queer person deserves safety, dignity and the right to exist visibly without fear.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">✊</span>
+        <div class="eq-title">Racial Justice</div>
+        <p class="eq-text">Anti-racism is not an optional extra. Structural racism must be actively dismantled, not just acknowledged.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">♀️</span>
+        <div class="eq-title">Women's Rights</div>
+        <p class="eq-text">Bodily autonomy, equal pay, freedom from violence. Feminism that includes every woman, including trans women.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">♿</span>
+        <div class="eq-title">Disability Rights</div>
+        <p class="eq-text">Disabled people deserve full accessibility, fair benefits, and inclusion not as charity but as a right.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">💰</span>
+        <div class="eq-title">Class Equality</div>
+        <p class="eq-text">Working class people built this country. It is time the system worked for them instead of against them.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">🌍</span>
+        <div class="eq-title">LEGAL Migrant Rights</div>
+        <p class="eq-text">We should accept people who come in from active warzones or from countries with abusive goverments who restrict their freedom and rights, and help them become legal citizens who respect our, and others cultures.</p>
+      </div>
+      <div class="eq-card">
+        <span class="eq-icon">🧒</span>
+        <div class="eq-title">Young People</div>
+        <p class="eq-text">We are not the future. We are the present. Lower the voting age and actually listen to young people.</p>
+      </div>
+    </div>
+
+    <div class="eq-statement">
+      I believe in total equal rights. Not equality for some. Not rights with exceptions or asterisks. Every single person, regardless of who they are or where they come from, deserves to live freely, safely and with dignity. That is not a political opinion. It is just being human :3
+    </div>
+  </div>
+
+  <div class="page" id="p7">
+    <div class="sl">My stance</div>
+    <div class="tr-big">TRANS<br>RIGHTS</div>
+
+    <div class="tr-grid">
+      <div class="tr-card">
+        <span class="tr-card-num">01</span>
+        <div class="tr-card-title">Identity is Real</div>
+        <p class="tr-card-text">Trans people have existed across every culture and throughout all of recorded history. Gender identity is a documented part of human experience. The science is clear and the lived experiences are undeniable.</p>
+      </div>
+      <div class="tr-card">
+        <span class="tr-card-num">02</span>
+        <div class="tr-card-title">Healthcare Saves Lives</div>
+        <p class="tr-card-text">Gender-affirming care is evidence-based medicine backed by every major medical organisation worldwide. Access to it reduces depression, anxiety and suicidality. Denying it causes real, measurable harm.</p>
+      </div>
+      <div class="tr-card">
+        <span class="tr-card-num">03</span>
+        <div class="tr-card-title">Safety Matters</div>
+        <p class="tr-card-text">Trans people face disproportionate rates of violence and discrimination. Hate crimes are rising. Protecting trans rights is a matter of basic human safety, not ideology.</p>
+      </div>
+      <div class="tr-card">
+        <span class="tr-card-num">04</span>
+        <div class="tr-card-title">Sport is for Everyone</div>
+        <p class="tr-card-text">The moral panic around trans athletes is not backed by evidence of systematic advantage. Trans women are women. Excluding trans people from public life sends one message: you are not welcome. That is not okay, Evidence also shows that they dont just dislike trans women in womens sports/ trans men in mens sports, The people who claim to only be against trans women in womens sports and trans men in mens sports happen to put a total ban on trans people in all sports (even ungendered ones!) and that isnt ok</p>
+      </div>
+      <div class="tr-card">
+        <span class="tr-card-num">05</span>
+        <div class="tr-card-title">Youth Deserve Support</div>
+        <p class="tr-card-text">Anyone experiencing gender dysphoria, especially around the age of 13 and up, should at the very least receive proper mental support in a medically safe and well regulated way. Early and careful support improves outcomes. Conversion therapy causes documented trauma, full stop.</p>
+      </div>
+      <div class="tr-card">
+        <span class="tr-card-num">06</span>
+        <div class="tr-card-title">Simply Put</div>
+        <p class="tr-card-text">Trans rights are human rights. Trans people are not a debate, not a culture war and not a threat. We are people living our lives. Respect costs nothing and means everything :3 🏳️‍⚧️</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<section>
-  <p class="section-label reveal">Open source work</p>
-  <h2 class="section-title reveal">Projects</h2>
-
-  <div class="projects-grid reveal">
-    <a class="project-card" href="https://github.com/isaacbenjaminsoft/IBSL" target="_blank">
-      <div class="project-icon">📜</div>
-      <div class="project-name">IBSL</div>
-      <span class="project-tag">Software License</span>
-      <p class="project-desc">The Isaac-Benjamin Software License  an anti-corporate, anti-scraping source-available license designed to protect indie devs, modders, and community creators.</p>
-      <span class="project-arrow">↗</span>
-    </a>
-
-    <a class="project-card" href="https://github.com/isaacbenjaminsoft" target="_blank">
-      <div class="project-icon">🛠</div>
-      <div class="project-name">More Coming</div>
-      <span class="project-tag">In Development</span>
-      <p class="project-desc">New repositories and projects from isaac-benjamin are on the way. Watch the GitHub profile to be notified when new work drops.</p>
-      <span class="project-arrow">↗</span>
-    </a>
-  </div>
-</section>
-
-<hr class="divider">
-
-<section id="license">
-  <p class="section-label reveal">The License</p>
-  <h2 class="section-title reveal">IBSL v1.0</h2>
-
-  <div class="ibsl-block reveal">
-    <div class="ibsl-sub">Anti-Corporate . Anti-Scraping . Source-Available</div>
-    <div class="ibsl-title">Isaac-Benjamin Software License</div>
-    <p class="ibsl-desc">
-      A license written for the people who actually build things  indie devs, modders, content creators,
-      and community projects. Friendly to humans, hostile to exploitation. Corporate entities, 
-      scrapers, and surveillance systems are explicitly unwelcome.
-    </p>
-    <div class="pill-row">
-      <span class="pill green">✓ Use freely</span>
-      <span class="pill green">✓ Modify</span>
-      <span class="pill green">✓ Monetize content</span>
-      <span class="pill green">✓ Fork &amp; share</span>
-      <span class="pill red">✗ Corporate use</span>
-      <span class="pill red">✗ Data scraping</span>
-    </div>
-  </div>
-
-  <p style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; line-height: 2;">
-    Contact for licensing enquiries: <a href="mailto:isaacbenjaminsoft@protonmail.com" style="color: var(--green); text-decoration: none;">isaacbenjaminsoft@protonmail.com</a>
-  </p>
-</section>
-
-<hr class="divider">
-
-<section id="youtube">
-  <p class="section-label reveal">Content creation</p>
-  <h2 class="section-title reveal">YouTube</h2>
-
-  <a class="yt-card reveal" href="https://www.youtube.com/@IzakPlayz" target="_blank">
-    <div class="yt-stripe"></div>
-    <div class="yt-body">
-      <span class="yt-handle">@IzakPlayz</span>
-      <div class="yt-title">IzakPlayz</div>
-      <p class="yt-desc">
-        Gaming content made with genuine passion :3 No corporate slop, no chasing algorithms 
-        just a trans girl doing what she loves.
-      </p>
-      <span class="yt-sub-btn">▶ Watch now ↗</span>
-    </div>
-  </a>
-</section>
-
-<hr class="divider">
-
-<section id="about">
-  <p class="section-label reveal">About me :3</p>
-  <h2 class="section-title reveal">Likes &amp; Interests</h2>
-
-  <div class="likes-grid reveal">
-    <div class="like-box">
-      <span class="like-emoji">⛏️</span>
-      <span class="like-label">Minecraft</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">🔫</span>
-      <span class="like-label">GTA</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">🎯</span>
-      <span class="like-label">Hitman</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">🦈</span>
-      <span class="like-label">Blahaj :3</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">💻</span>
-      <span class="like-label">Coding</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">🐧</span>
-      <span class="like-label">Linux</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">🏳️‍⚧️</span>
-      <span class="like-label">Trans rights :3</span>
-    </div>
-    <div class="like-box">
-      <span class="like-emoji">🎮</span>
-      <span class="like-label">Gaming</span>
-    </div>
-  </div>
-
-  <p style="font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted); margin-top:2.5rem; line-height:2.2;">
-    she/her . trans girl . indie dev . linux user . open source enjoyer . blahaj haver :3
-  </p>
-</section>
-
-<hr class="divider">
-
-<footer>
-  <div class="footer-logo">IBSOFT</div>
-  <ul class="footer-links">
-    <li><a href="https://github.com/isaacbenjaminsoft" target="_blank">GitHub</a></li>
-    <li><a href="https://www.youtube.com/@IzakPlayz" target="_blank">YouTube</a></li>
-    <li><a href="mailto:isaacbenjaminsoft@protonmail.com">Email</a></li>
-  </ul>
-  <p class="footer-copy">© 2026 isaac-benjamin . IBSL v1.0 . 🏳️‍⚧️ trans rights :3</p>
-</footer>
-
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => obs.observe(r));
-</script>
+const pages = document.querySelectorAll('.page');
+const dotsEl = document.getElementById('dots');
+const curEl = document.getElementById('cur');
+let current = 0, locked = false;
 
+const labels = ['Home','About Me','Projects','License','YouTube','Politics','Equal Rights','Trans Rights'];
+document.getElementById('cur').closest('.page-counter').innerHTML = '<span class="n" id="cur">01</span> / ' + labels.length.toString().padStart(2,'0');
+
+labels.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'scroll-dot' + (i===0?' active':'');
+  d.title = labels[i];
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function goTo(n) {
+  if (locked || n === current || n < 0 || n >= pages.length) return;
+  locked = true;
+  const dir = n > current ? 1 : -1;
+  const leaving = pages[current];
+  leaving.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+  leaving.style.opacity = '0';
+  leaving.style.transform = `translateY(${dir > 0 ? '-55px' : '55px'})`;
+  leaving.style.pointerEvents = 'none';
+  current = n;
+  const entering = pages[current];
+  entering.style.transition = 'none';
+  entering.style.opacity = '0';
+  entering.style.transform = `translateY(${dir > 0 ? '55px' : '-55px'})`;
+  entering.style.pointerEvents = 'all';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    entering.style.transition = 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+    entering.style.opacity = '1';
+    entering.style.transform = 'translateY(0)';
+  }));
+  setTimeout(() => {
+    leaving.className = 'page';
+    leaving.style.cssText = '';
+    entering.className = 'page active';
+    locked = false;
+  }, 750);
+  document.querySelectorAll('.scroll-dot').forEach((d,i) => d.classList.toggle('active', i===current));
+  document.getElementById('cur').textContent = String(current+1).padStart(2,'0');
+}
+
+window.goTo = goTo;
+
+let wheelAcc = 0, wt = null;
+window.addEventListener('wheel', e => {
+  e.preventDefault();
+  wheelAcc += e.deltaY;
+  clearTimeout(wt);
+  wt = setTimeout(() => {
+    if (wheelAcc > 40) goTo(current+1);
+    else if (wheelAcc < -40) goTo(current-1);
+    wheelAcc = 0;
+  }, 60);
+}, {passive:false});
+
+let ts = 0;
+window.addEventListener('touchstart', e => { ts = e.touches[0].clientY; });
+window.addEventListener('touchend', e => {
+  const d = ts - e.changedTouches[0].clientY;
+  if (Math.abs(d) > 50) goTo(current + (d > 0 ? 1 : -1));
+});
+
+window.addEventListener('keydown', e => {
+  if (e.key==='ArrowDown'||e.key==='PageDown') goTo(current+1);
+  if (e.key==='ArrowUp'||e.key==='PageUp') goTo(current-1);
+});
+
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let W, H;
+const resize = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; };
+resize();
+window.addEventListener('resize', resize);
+
+const cols = ['#5BCEFA','#F5A9B8','#ffffff'];
+const pts = Array.from({length:70}, () => ({
+  x:Math.random()*1600, y:Math.random()*900,
+  r:Math.random()*1.4+0.3,
+  vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22,
+  c:cols[Math.floor(Math.random()*3)],
+  a:Math.random()*.3+0.04
+}));
+
+(function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(((p.x%W)+W)%W,((p.y%H)+H)%H,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.c; ctx.globalAlpha=p.a; ctx.fill();
+    p.x+=p.vx; p.y+=p.vy;
+  });
+  ctx.globalAlpha=1;
+  requestAnimationFrame(draw);
+})();
+</script>
 </body>
 </html>
