@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isaac Benjamin — Trans Girl, Dev & Creator :3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #181818;
+    --green: #5BCEFA;
+    --green-dim: #5BCEFA22;
+    --amber: #F5A9B8;
+    --text: #e5e5e5;
+    --muted: #777;
+    --border: #222;
+    --pixel: 4px;
+    --trans-blue: #5BCEFA;
+    --trans-pink: #F5A9B8;
+    --trans-white: #FFFFFF;
+    --trans-grad: linear-gradient(90deg, #5BCEFA, #F5A9B8, #ffffff, #F5A9B8, #5BCEFA);
+  }
+
+  .trans-text {
+    background: var(--trans-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .trans-flag {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.18;
+    pointer-events: none;
+    animation: floatBlock linear infinite;
+  }
+  .trans-flag div { width: 100%; }
+
+  .tf-sm { width: 48px; }
+  .tf-sm div { height: 8px; }
+  .tf-md { width: 72px; }
+  .tf-md div { height: 12px; }
+
+  .tf1 { top: 12%; right: 6%; animation-duration: 11s; }
+  .tf2 { top: 55%; right: 20%; animation-duration: 14s; animation-delay: -5s; opacity: 0.1; }
+  .tf3 { top: 30%; right: 42%; animation-duration: 9s; animation-delay: -2s; opacity: 0.07; }
+
+  .pride-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--trans-blue) 0%, var(--trans-blue) 20%,
+      var(--trans-pink) 20%, var(--trans-pink) 40%,
+      var(--trans-white) 40%, var(--trans-white) 60%,
+      var(--trans-pink) 60%, var(--trans-pink) 80%,
+      var(--trans-blue) 80%, var(--trans-blue) 100%
+    );
+    z-index: 9998;
+  }
+
+  .likes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .like-box {
+    background: var(--surface);
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .like-box:hover { background: var(--surface2); }
+
+  .like-emoji { font-size: 1.8rem; display: block; margin-bottom: 0.75rem; }
+
+  .like-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .trans-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.15s;
+  }
+  .trans-badge span {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #000;
+  }
+  .tb-blue { background: var(--trans-blue); }
+  .tb-pink { background: var(--trans-pink); }
+  .tb-white { background: var(--trans-white); }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.04) 2px,
+      rgba(0,0,0,0.04) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,222,128,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,222,128,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3rem;
+    overflow: hidden;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.3s;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 13rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #5BCEFA 0%, #F5A9B8 45%, #ffffff 60%, #F5A9B8 75%, #5BCEFA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  .hero-name span {
+    display: inline-block;
+    position: relative;
+  }
+
+  .hero-name span::after {
+    content: '█';
+    font-size: 0.5em;
+    vertical-align: top;
+    color: #5BCEFA;
+    -webkit-text-fill-color: #5BCEFA;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  .hero-desc {
+    margin-top: 2.5rem;
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border: 1px solid;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: #000;
+    border-color: var(--green);
+    font-weight: 700;
+  }
+  .btn-primary:hover { background: #6ee7a0; border-color: #6ee7a0; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); }
+
+  .pixel-float {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--green);
+    opacity: 0.08;
+    animation: floatBlock linear infinite;
+  }
+  .pixel-float:nth-child(1) { right: 12%; top: 20%; animation-duration: 8s; width: 12px; height: 12px; }
+  .pixel-float:nth-child(2) { right: 25%; top: 40%; animation-duration: 12s; animation-delay: -3s; opacity: 0.05; }
+  .pixel-float:nth-child(3) { right: 8%; top: 60%; animation-duration: 10s; animation-delay: -6s; width: 36px; height: 36px; opacity: 0.04; }
+  .pixel-float:nth-child(4) { right: 35%; top: 15%; animation-duration: 14s; animation-delay: -2s; width: 8px; height: 8px; opacity: 0.1; }
+  .pixel-float:nth-child(5) { right: 18%; top: 75%; animation-duration: 9s; animation-delay: -4s; width: 16px; height: 16px; }
+
+  .hero-side-text {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: var(--green);
+    opacity: 0.4;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    background: linear-gradient(90deg, #5BCEFA, #F5A9B8, #ffffff, #F5A9B8, #5BCEFA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 3rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover { border-color: #333; transform: translateY(-2px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--green-dim);
+    border: 1px solid rgba(74,222,128,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, #5BCEFA, #F5A9B8, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .project-arrow {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+  }
+  .project-card:hover .project-arrow { color: var(--green); transform: translate(3px, -3px); }
+
+  .ibsl-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    padding: 2.5rem 3rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ibsl-block::after {
+    content: 'IBSL';
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: rgba(74,222,128,0.05);
+    pointer-events: none;
+  }
+
+  .ibsl-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+  }
+
+  .ibsl-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .ibsl-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--surface2);
+  }
+
+  .pill.green { border-color: rgba(74,222,128,0.3); color: var(--green); background: rgba(74,222,128,0.07); }
+  .pill.red { border-color: rgba(248,113,113,0.3); color: #f87171; background: rgba(248,113,113,0.07); }
+
+  .yt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .yt-card:hover { border-color: #ff4444; }
+
+  .yt-stripe {
+    width: 4px;
+    background: #ff4444;
+  }
+
+  .yt-body { padding: 2.5rem; }
+
+  .yt-handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: #ff4444;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .yt-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.03em;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .yt-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .yt-sub-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ff4444;
+    border: 1px solid rgba(255,68,68,0.3);
+    padding: 0.6rem 1.25rem;
+    transition: all 0.2s;
+  }
+
+  .yt-card:hover .yt-sub-btn { background: rgba(255,68,68,0.1); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 4rem 0;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--green);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.07);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--green); }
+
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: #333;
+    letter-spacing: 0.1em;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes floatBlock {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-40px) rotate(45deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  .terminal-line {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--green);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1.25rem;
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1.2s;
+  }
+  .terminal-line .prompt { color: var(--muted); }
+  .terminal-line .cursor {
+    width: 8px; height: 14px;
+    background: var(--green);
+    animation: blink 1s steps(1) infinite;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<div class="pride-bar"></div>
+
+<nav>
+  <a class="nav-logo" href="#">IB/SOFT</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#youtube">YouTube</a></li>
+    <li><a href="#about">About :3</a></li>
+    <li><a href="https://github.com/isaacbenjaminsoft" target="_blank">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="pixel-float"></div>
+  <div class="pixel-float"></div>
+  <div class="pixel-float"></div>
+  <div class="pixel-float"></div>
+  <div class="pixel-float"></div>
+
+  <div class="trans-flag tf-sm tf1">
+    <div style="background:var(--trans-blue)"></div>
+    <div style="background:var(--trans-pink)"></div>
+    <div style="background:var(--trans-white)"></div>
+    <div style="background:var(--trans-pink)"></div>
+    <div style="background:var(--trans-blue)"></div>
+  </div>
+  <div class="trans-flag tf-md tf2">
+    <div style="background:var(--trans-blue)"></div>
+    <div style="background:var(--trans-pink)"></div>
+    <div style="background:var(--trans-white)"></div>
+    <div style="background:var(--trans-pink)"></div>
+    <div style="background:var(--trans-blue)"></div>
+  </div>
+  <div class="trans-flag tf-sm tf3">
+    <div style="background:var(--trans-blue)"></div>
+    <div style="background:var(--trans-pink)"></div>
+    <div style="background:var(--trans-white)"></div>
+    <div style="background:var(--trans-pink)"></div>
+    <div style="background:var(--trans-blue)"></div>
+  </div>
+
+  <div class="hero-side-text">DEVELOPER</div>
+
+  <div class="trans-badge">
+    <span class="tb-blue">she</span><span class="tb-pink">her</span><span class="tb-white">trans girl</span><span class="tb-pink">:3</span><span class="tb-blue">dev</span>
+  </div>
+  <p class="hero-tag">// Isaac Benjamin Software</p>
+  <h1 class="hero-name">ISAAC<br><span>BENJAMIN</span></h1>
+  <p class="hero-desc">
+    Trans girl, indie developer and open-source advocate :3
+    Building software free from corporate capture writing code on Linux, playing games, and hugging blahaj.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="https://www.youtube.com/@IzakPlayz" target="_blank" class="btn btn-outline">Watch on YouTube ↗</a>
+  </div>
+  <div class="terminal-line">
+    <span class="prompt">$</span>
+    <span>cat IBSL.md</span>
+    <span class="cursor"></span>
+  </div>
+</section>
+
+<hr class="divider">
+
+<div class="stats-row reveal" id="projects">
+  <div class="stat-box">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Repositories</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Stars earned</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">2026</div>
+    <div class="stat-label">Founded</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-num">🦈</div>
+    <div class="stat-label">Blahaj owned</div>
+  </div>
+</div>
+
+<section>
+  <p class="section-label reveal">Open source work</p>
+  <h2 class="section-title reveal">Projects</h2>
+
+  <div class="projects-grid reveal">
+    <a class="project-card" href="https://github.com/isaacbenjaminsoft/IBSL" target="_blank">
+      <div class="project-icon">📜</div>
+      <div class="project-name">IBSL</div>
+      <span class="project-tag">Software License</span>
+      <p class="project-desc">The Isaac-Benjamin Software License  an anti-corporate, anti-scraping source-available license designed to protect indie devs, modders, and community creators.</p>
+      <span class="project-arrow">↗</span>
+    </a>
+
+    <a class="project-card" href="https://github.com/isaacbenjaminsoft" target="_blank">
+      <div class="project-icon">🛠</div>
+      <div class="project-name">More Coming</div>
+      <span class="project-tag">In Development</span>
+      <p class="project-desc">New repositories and projects from isaac-benjamin are on the way. Watch the GitHub profile to be notified when new work drops.</p>
+      <span class="project-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="license">
+  <p class="section-label reveal">The License</p>
+  <h2 class="section-title reveal">IBSL v1.0</h2>
+
+  <div class="ibsl-block reveal">
+    <div class="ibsl-sub">Anti-Corporate . Anti-Scraping . Source-Available</div>
+    <div class="ibsl-title">Isaac-Benjamin Software License</div>
+    <p class="ibsl-desc">
+      A license written for the people who actually build things  indie devs, modders, content creators,
+      and community projects. Friendly to humans, hostile to exploitation. Corporate entities, 
+      scrapers, and surveillance systems are explicitly unwelcome.
+    </p>
+    <div class="pill-row">
+      <span class="pill green">✓ Use freely</span>
+      <span class="pill green">✓ Modify</span>
+      <span class="pill green">✓ Monetize content</span>
+      <span class="pill green">✓ Fork &amp; share</span>
+      <span class="pill red">✗ Corporate use</span>
+      <span class="pill red">✗ Data scraping</span>
+    </div>
+  </div>
+
+  <p style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; line-height: 2;">
+    Contact for licensing enquiries: <a href="mailto:isaacbenjaminsoft@protonmail.com" style="color: var(--green); text-decoration: none;">isaacbenjaminsoft@protonmail.com</a>
+  </p>
+</section>
+
+<hr class="divider">
+
+<section id="youtube">
+  <p class="section-label reveal">Content creation</p>
+  <h2 class="section-title reveal">YouTube</h2>
+
+  <a class="yt-card reveal" href="https://www.youtube.com/@IzakPlayz" target="_blank">
+    <div class="yt-stripe"></div>
+    <div class="yt-body">
+      <span class="yt-handle">@IzakPlayz</span>
+      <div class="yt-title">IzakPlayz</div>
+      <p class="yt-desc">
+        Gaming content made with genuine passion :3 No corporate slop, no chasing algorithms 
+        just a trans girl doing what she loves.
+      </p>
+      <span class="yt-sub-btn">▶ Watch now ↗</span>
+    </div>
+  </a>
+</section>
+
+<hr class="divider">
+
+<section id="about">
+  <p class="section-label reveal">About me :3</p>
+  <h2 class="section-title reveal">Likes &amp; Interests</h2>
+
+  <div class="likes-grid reveal">
+    <div class="like-box">
+      <span class="like-emoji">⛏️</span>
+      <span class="like-label">Minecraft</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">🔫</span>
+      <span class="like-label">GTA</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">🎯</span>
+      <span class="like-label">Hitman</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">🦈</span>
+      <span class="like-label">Blahaj :3</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">💻</span>
+      <span class="like-label">Coding</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">🐧</span>
+      <span class="like-label">Linux</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">🏳️‍⚧️</span>
+      <span class="like-label">Trans rights :3</span>
+    </div>
+    <div class="like-box">
+      <span class="like-emoji">🎮</span>
+      <span class="like-label">Gaming</span>
+    </div>
+  </div>
+
+  <p style="font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted); margin-top:2.5rem; line-height:2.2;">
+    she/her . trans girl . indie dev . linux user . open source enjoyer . blahaj haver :3
+  </p>
+</section>
+
+<hr class="divider">
+
+<footer>
+  <div class="footer-logo">IBSOFT</div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/isaacbenjaminsoft" target="_blank">GitHub</a></li>
+    <li><a href="https://www.youtube.com/@IzakPlayz" target="_blank">YouTube</a></li>
+    <li><a href="mailto:isaacbenjaminsoft@protonmail.com">Email</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 isaac-benjamin . IBSL v1.0 . 🏳️‍⚧️ trans rights :3</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+
+</body>
+</html>
