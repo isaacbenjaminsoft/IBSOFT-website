@@ -37,7 +37,6 @@ nav{position:fixed;top:4px;left:0;right:0;z-index:1000;display:flex;align-items:
 .scroll-indicator{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:0.5rem;align-items:center}
 .scroll-dot{width:5px;height:5px;border:1px solid #333;border-radius:50%;cursor:pointer;transition:all 0.3s}
 .scroll-dot.active{background:var(--pink);border-color:var(--pink);transform:scale(1.6)}
-.scroll-dot-label{display:none}
 
 #container{height:100vh;overflow:hidden;position:relative;z-index:1}
 .page{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:6.5rem 3rem 2.5rem;opacity:0;transform:translateY(60px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);pointer-events:none;overflow:hidden}
@@ -152,19 +151,19 @@ nav{position:fixed;top:4px;left:0;right:0;z-index:1000;display:flex;align-items:
 .about-card-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
 .about-card-sub{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;line-height:1.6}
 
-.pol-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);padding:2.25rem 2.75rem;position:relative;overflow:hidden;margin-bottom:1.75rem}
+.pol-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);padding:1.25rem 1.75rem;position:relative;overflow:hidden;margin-bottom:1.25rem}
 .pol-block::after{content:'MP';position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:8rem;color:rgba(91,206,250,0.04);pointer-events:none}
-.pol-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.04em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem}
-.pol-sub{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.2em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem}
-.pol-desc{font-size:0.85rem;color:var(--muted);line-height:1.85;max-width:640px}
+.pol-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.04em;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem}
+.pol-sub{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;color:var(--blue);text-transform:uppercase;margin-bottom:0.6rem}
+.pol-desc{font-size:0.76rem;color:var(--muted);line-height:1.7;max-width:none}
 .pol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
-.pol-card{background:var(--surface);padding:1.5rem 1.4rem;transition:background 0.2s;position:relative;overflow:hidden}
+.pol-card{background:var(--surface);padding:1rem 1.1rem;transition:background 0.2s;position:relative;overflow:hidden}
 .pol-card:hover{background:var(--surface2)}
 .pol-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--tg);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
 .pol-card:hover::before{transform:scaleX(1)}
-.pol-card-icon{font-size:1.5rem;margin-bottom:0.75rem;display:block}
-.pol-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.4rem;letter-spacing:0.04em}
-.pol-card-text{font-size:0.76rem;color:var(--muted);line-height:1.7}
+.pol-card-icon{font-size:1.2rem;margin-bottom:0.45rem;display:block}
+.pol-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;background:var(--tg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.3rem;letter-spacing:0.04em}
+.pol-card-text{font-size:0.7rem;color:var(--muted);line-height:1.6}
 
 .eq-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);line-height:0.9;letter-spacing:0.02em;background:var(--tgd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.75rem}
 .eq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem}
@@ -222,6 +221,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 
 <div id="container">
 
+  <!-- PAGE 0: HOME -->
   <div class="page active" id="p0">
     <div class="flag-scene fs1">
       <div class="mini-flag mf-lg"><div style="background:var(--blue)"></div><div style="background:var(--pink)"></div><div style="background:var(--white)"></div><div style="background:var(--pink)"></div><div style="background:var(--blue)"></div></div>
@@ -233,8 +233,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="mini-flag mf-xl"><div style="background:var(--blue)"></div><div style="background:var(--pink)"></div><div style="background:var(--white)"></div><div style="background:var(--pink)"></div><div style="background:var(--blue)"></div></div>
     </div>
 
-<div class="blahaj-wrap">
-      <img src="blahaj.png" alt="Blahaj" style="width: 250px; height: auto; filter: drop-shadow(0 10px 20px rgba(91,206,250,0.4));">
+    <div class="blahaj-wrap">
+      <img src="blahaj.png" alt="Blahaj" style="width:250px;height:auto;filter:drop-shadow(0 10px 20px rgba(91,206,250,0.4));">
     </div>
 
     <div class="side-text">DEVELOPER</div>
@@ -246,7 +246,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="sl">Isaac Benjamin</div>
     <h1 class="hero-name">ISAAC<br>BENJAMIN<span class="hcursor"></span></h1>
 
-    <p class="hero-sub">Trans girl. Indie developer. Aspiring UK politician. From Scotland. Open-source advocate :3<br>Writing code on Linux, fighting for equal rights, gaming hard, hugging blahaj.</p>
+    <p class="hero-sub">Trans girl. Indie developer. Aspiring UK politician. From Scotland. Open-source advocate :3<br>Writing code on Linux, fighting for equal rights, gaming hard, hugging Blahaj.</p>
 
     <div class="hero-cta">
       <a href="#" onclick="goTo(1);return false" class="btn btn-primary"><span>About Me</span></a>
@@ -261,6 +261,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </div>
   </div>
 
+  <!-- PAGE 1: ABOUT ME -->
   <div class="page" id="p1">
     <div class="sl">The person behind the keyboard</div>
     <h2 class="big-title tg">About Me</h2>
@@ -272,12 +273,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
           <div class="about-card">
             <div class="about-card-label">Age</div>
             <div class="about-card-val">Young Adult</div>
-            <div class="about-card-sub">Just a young adult :3 not telling you exactly</div>
+            <div class="about-card-sub">Just a young adult :3 not telling you exactly.</div>
           </div>
           <div class="about-card">
             <div class="about-card-label">Nationality</div>
             <div class="about-card-val">British / Scottish</div>
-            <div class="about-card-sub">Proud to be from Scotland and a proud citizen of the UK.</div>
+            <div class="about-card-sub">Proud to be Scottish and a proud citizen of the UK.</div>
           </div>
           <div class="about-card">
             <div class="about-card-label">Identity</div>
@@ -287,14 +288,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
           <div class="about-card">
             <div class="about-card-label">Location</div>
             <div class="about-card-val">UK / Europe</div>
-            <div class="about-card-sub">Living In England, focused on the future of the whole UK.</div>
+            <div class="about-card-sub">Living in England, focused on the future of the whole UK.</div>
           </div>
         </div>
       </div>
 
       <div>
         <div class="quote-block">
-          <p>I am a young adult trans girl from England who loves coding on Linux, playing games and cuddling blahaj. I want to make the world a fairer place, starting with tech and ending in parliament. :3</p>
+          <p>I am a young adult trans girl from England who loves coding on Linux, playing games, and cuddling Blahaj. I want to make the world a fairer place: starting with tech and ending in parliament. :3</p>
           <cite>Isaac Benjamin, probably at 2am writing code</cite>
         </div>
 
@@ -327,6 +328,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </div>
   </div>
 
+  <!-- PAGE 2: PROJECTS -->
   <div class="page" id="p2">
     <div class="sl">Open source work</div>
     <h2 class="big-title tg">Projects</h2>
@@ -336,7 +338,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">Repositories</div></div>
       <div class="stat-box"><div class="stat-num">1</div><div class="stat-label">Stars</div></div>
       <div class="stat-box"><div class="stat-num">2026</div><div class="stat-label">Founded</div></div>
-      <div class="stat-box"><div class="stat-num">🦈</div><div class="stat-label">Blahaj owned</div></div>
+      <div class="stat-box"><div class="stat-num">🦈</div><div class="stat-label">Blahaj Owned</div></div>
     </div>
 
     <div class="projects-grid">
@@ -344,7 +346,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
         <div class="project-icon">📜</div>
         <div class="project-name">IBSL</div>
         <span class="project-tag">Software License</span>
-        <p class="project-desc">The Isaac-Benjamin Software License. Anti-corporate, anti-AI-scraping, source-available. Built to protect indie devs, modders and community creators.</p>
+        <p class="project-desc">The Isaac-Benjamin Software License. Anti-corporate, anti-AI-scraping, source-available. Built to protect indie devs, modders, and community creators.</p>
         <span class="project-arrow">↗</span>
       </a>
       <a class="project-card" href="https://github.com/isaacbenjaminsoft" target="_blank">
@@ -357,6 +359,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </div>
   </div>
 
+  <!-- PAGE 3: LICENSE -->
   <div class="page" id="p3">
     <div class="sl">The License</div>
     <h2 class="big-title tg">IBSL v1.0</h2>
@@ -365,7 +368,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="ibsl-block">
       <div class="ibsl-sub">Anti-Corporate · Anti-AI-Scraping · Source-Available</div>
       <div class="ibsl-title">Isaac-Benjamin Software License</div>
-      <p class="ibsl-desc">A license written for the people who actually build things. Indie devs, modders, content creators and community projects. Friendly to humans, hostile to exploitation. Corporate entities, AI scrapers and surveillance systems are explicitly unwelcome :3</p>
+      <p class="ibsl-desc">A license written for the people who actually build things: indie devs, modders, content creators, and community projects. Friendly to humans, hostile to exploitation. Corporate entities, AI scrapers, and surveillance systems are explicitly unwelcome :3</p>
       <div class="pill-row">
         <span class="pill g">Use freely</span>
         <span class="pill g">Modify</span>
@@ -382,6 +385,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </p>
   </div>
 
+  <!-- PAGE 4: YOUTUBE -->
   <div class="page" id="p4">
     <div class="sl">Content creation</div>
     <h2 class="big-title tg">YouTube + Interests</h2>
@@ -393,7 +397,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
         <div class="yt-body">
           <span class="yt-handle">@IzakPlayz</span>
           <div class="yt-title">IzakPlayz</div>
-          <p class="yt-desc">Gaming content made with genuine passion :3 No corporate slop, no chasing algorithms. Just a trans girl doing what she loves.</p>
+          <p class="yt-desc">Gaming content made with genuine passion :3 No corporate filler, no chasing algorithms. Just a trans girl doing what she loves.</p>
           <span class="yt-btn">Watch now</span>
         </div>
       </a>
@@ -413,6 +417,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </div>
   </div>
 
+  <!-- PAGE 5: POLITICS -->
   <div class="page" id="p5">
     <div class="sl">My political ambitions</div>
     <h2 class="big-title tg">Future UK Politician</h2>
@@ -421,7 +426,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="pol-block">
       <div class="pol-sub">Aspiring Member of Parliament · UK Politics</div>
       <div class="pol-title">I Want to Change Things</div>
-      <p class="pol-desc">I am a young adult from England with a plan. I plan to enter UK politics and one day become a Member of Parliament. Not to play the game, but to change it. I want to be the kind of politician this country actually needs: young, queer, working class, honest, and fighting for everyone who gets left behind. Trans rights, digital rights, equality, housing, mental health. All of it. If nobody else is going to say it, I will :3 I am firmly against extremism, fascism, Marxist-Leninism, and Stalinism. Economically, while I am at my core a capitalist, we must not be closed minded. We need to learn from socialism to build a fairer system, just as socialism needs to learn from capitalism.</p>
+      <p class="pol-desc">I am a young adult from England with a plan: enter UK politics and one day become a Member of Parliament. Not to play the game, but to change it. I want to be the kind of politician this country actually needs: young, queer, working class, honest, and fighting for everyone who gets left behind. Trans rights, digital rights, equality, housing, mental health. All of it. If nobody else is going to say it, I will :3 I stand firmly against extremism, fascism, Marxist-Leninism, and Stalinism. Economically, I am at my core a capitalist, but with an open mind. We need to learn from socialism to build a fairer system, just as socialism must learn from capitalism.</p>
     </div>
 
     <div class="pol-grid">
@@ -433,7 +438,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="pol-card">
         <span class="pol-card-icon">🏳️‍⚧️</span>
         <div class="pol-card-title">Trans Rights in Law</div>
-        <p class="pol-card-text">I would fight to enshrine trans rights into UK law. Full legal recognition, access to healthcare, and protection from discrimination. No compromises.</p>
+        <p class="pol-card-text">I would fight to enshrine trans rights into UK law: full legal recognition, access to healthcare, and protection from discrimination. No compromises.</p>
       </div>
       <div class="pol-card">
         <span class="pol-card-icon">💻</span>
@@ -448,16 +453,17 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="pol-card">
         <span class="pol-card-icon">🏠</span>
         <div class="pol-card-title">Housing and Poverty</div>
-        <p class="pol-card-text">Young people and working class communities are being priced out of life. Affordable housing, a real living wage and scrapping food bank culture are non-negotiables.</p>
+        <p class="pol-card-text">Young people and working class communities are being priced out of life. Affordable housing, a real living wage, and an end to food bank culture are non-negotiables.</p>
       </div>
       <div class="pol-card">
         <span class="pol-card-icon">🧠</span>
         <div class="pol-card-title">Mental Health</div>
-        <p class="pol-card-text">The NHS mental health system is broken. CAMHS waiting lists are a scandal (Metaphorically) And most people dont get the support they need until its too late or not worth it.</p>
+        <p class="pol-card-text">The NHS mental health system is broken. CAMHS waiting lists are a genuine scandal, and too many people do not get support until it is too late.</p>
       </div>
     </div>
   </div>
 
+  <!-- PAGE 6: EQUAL RIGHTS -->
   <div class="page" id="p6">
     <div class="sl">What I stand for</div>
     <div class="eq-big">TOTAL<br>EQUAL<br>RIGHTS</div>
@@ -471,7 +477,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="eq-card">
         <span class="eq-icon">🏳️‍🌈</span>
         <div class="eq-title">LGBTQ+</div>
-        <p class="eq-text">Every queer person deserves safety, dignity and the right to exist visibly without fear.</p>
+        <p class="eq-text">Every queer person deserves safety, dignity, and the right to exist visibly without fear.</p>
       </div>
       <div class="eq-card">
         <span class="eq-icon">✊</span>
@@ -486,7 +492,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="eq-card">
         <span class="eq-icon">♿</span>
         <div class="eq-title">Disability Rights</div>
-        <p class="eq-text">Disabled people deserve full accessibility, fair benefits, and inclusion not as charity but as a right.</p>
+        <p class="eq-text">Disabled people deserve full accessibility, fair benefits, and inclusion as a right, not a charity.</p>
       </div>
       <div class="eq-card">
         <span class="eq-icon">💰</span>
@@ -495,8 +501,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       </div>
       <div class="eq-card">
         <span class="eq-icon">🌍</span>
-        <div class="eq-title">LEGAL Migrant Rights</div>
-        <p class="eq-text">We should accept people who come in from active warzones or from countries with abusive goverments who restrict their freedom and rights, and help them become legal citizens who respect our, and others cultures.</p>
+        <div class="eq-title">Migrant Rights</div>
+        <p class="eq-text">People fleeing war zones or repressive governments deserve safe refuge and a genuine path to citizenship, with dignity and respect for all cultures.</p>
       </div>
       <div class="eq-card">
         <span class="eq-icon">🧒</span>
@@ -506,10 +512,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </div>
 
     <div class="eq-statement">
-      I believe in total equal rights. Not equality for some. Not rights with exceptions or asterisks. Every single person, regardless of who they are or where they come from, deserves to live freely, safely and with dignity. That is not a political opinion. It is just being human :3
+      I believe in total equal rights. Not equality for some. Not rights with exceptions or asterisks. Every single person, regardless of who they are or where they come from, deserves to live freely, safely, and with dignity. That is not a political opinion. It is just being human :3
     </div>
   </div>
 
+  <!-- PAGE 7: TRANS RIGHTS -->
   <div class="page" id="p7">
     <div class="sl">My stance</div>
     <div class="tr-big">TRANS<br>RIGHTS</div>
@@ -523,7 +530,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="tr-card">
         <span class="tr-card-num">02</span>
         <div class="tr-card-title">Healthcare Saves Lives</div>
-        <p class="tr-card-text">Gender-affirming care is evidence-based medicine backed by every major medical organisation worldwide. Access to it reduces depression, anxiety and suicidality. Denying it causes real, measurable harm.</p>
+        <p class="tr-card-text">Gender-affirming care is evidence-based medicine backed by every major medical organisation worldwide. Access to it reduces depression, anxiety, and suicidality. Denying it causes real, measurable harm.</p>
       </div>
       <div class="tr-card">
         <span class="tr-card-num">03</span>
@@ -533,17 +540,17 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
       <div class="tr-card">
         <span class="tr-card-num">04</span>
         <div class="tr-card-title">Sport is for Everyone</div>
-        <p class="tr-card-text">The moral panic around trans athletes is not backed by evidence of systematic advantage. Trans women are women. Excluding trans people from public life sends one message: you are not welcome. That is not okay, Evidence also shows that they dont just dislike trans women in womens sports/ trans men in mens sports, The people who claim to only be against trans women in womens sports and trans men in mens sports happen to put a total ban on trans people in all sports (even ungendered ones!) and that isnt ok</p>
+        <p class="tr-card-text">The moral panic around trans athletes is not backed by evidence of systematic advantage. Trans women are women. Those who claim to oppose only trans women in women's sport consistently support banning trans people from all sport, including ungendered competitions. That is not a sports policy. That is exclusion.</p>
       </div>
       <div class="tr-card">
         <span class="tr-card-num">05</span>
         <div class="tr-card-title">Youth Deserve Support</div>
-        <p class="tr-card-text">Anyone experiencing gender dysphoria, especially around the age of 13 and up, should at the very least receive proper mental support in a medically safe and well regulated way. Early and careful support improves outcomes. Conversion therapy causes documented trauma, full stop.</p>
+        <p class="tr-card-text">Anyone experiencing gender dysphoria, especially from around age 13, should receive proper mental health support in a medically safe and well-regulated environment. Early, careful support improves outcomes. Conversion therapy causes documented trauma, full stop.</p>
       </div>
       <div class="tr-card">
         <span class="tr-card-num">06</span>
         <div class="tr-card-title">Simply Put</div>
-        <p class="tr-card-text">Trans rights are human rights. Trans people are not a debate, not a culture war and not a threat. We are people living our lives. Respect costs nothing and means everything :3 🏳️‍⚧️</p>
+        <p class="tr-card-text">Trans rights are human rights. Trans people are not a debate, not a culture war, and not a threat. We are people living our lives. Respect costs nothing and means everything :3 🏳️‍⚧️</p>
       </div>
     </div>
   </div>
@@ -602,6 +609,8 @@ window.goTo = goTo;
 let wheelAcc = 0, wt = null;
 window.addEventListener('wheel', e => {
   e.preventDefault();
+  // On last page scrolling down, let the blahaj handler take over
+  if (current === LAST_PAGE && e.deltaY > 0) return;
   wheelAcc += e.deltaY;
   clearTimeout(wt);
   wt = setTimeout(() => {
@@ -650,6 +659,126 @@ const pts = Array.from({length:70}, () => ({
   ctx.globalAlpha=1;
   requestAnimationFrame(draw);
 })();
+
+// === BLAHAJ SCROLL HIJACK ===
+// On the last page, scrolling down summons an ever-growing pile of Blahajs from the bottom.
+const LAST_PAGE = pages.length - 1;
+
+// Create the persistent invasion container
+const invasionEl = document.createElement('div');
+invasionEl.style.cssText = 'position:fixed;bottom:0;left:0;right:0;height:100vh;pointer-events:none;z-index:8888;overflow:hidden';
+document.body.appendChild(invasionEl);
+
+// Each shark is placed in a slot on a virtual grid that fills from the bottom up.
+// We track how many have landed so we know how high the pile is.
+const SHARK_W = 160;   // px, base width of one shark
+const SHARK_OVERLAP = 0.55; // how much rows overlap vertically (sharks are wider than tall)
+let sharkCount = 0;
+let scrollPool = 0;
+const SCROLL_PER_SHARK = 55;
+let dismissTimer = null;
+
+function dismissAllSharks() {
+  dismissTimer = null;
+  scrollPool = 0;
+  const sharks = invasionEl.querySelectorAll('img');
+  sharks.forEach(s => {
+    s.style.transition = 'bottom 900ms cubic-bezier(0.55,0,1,0.45), opacity 700ms ease';
+    s.style.opacity = '0';
+    s.style.bottom = `-300px`;
+  });
+  setTimeout(() => {
+    invasionEl.innerHTML = '';
+    sharkCount = 0;
+  }, 1000);
+}
+
+function resetDismissTimer() {
+  clearTimeout(dismissTimer);
+  dismissTimer = setTimeout(dismissAllSharks, 15000);
+}
+
+function spawnOneShark() {
+  sharkCount++;
+  const el = document.createElement('img');
+  el.src = 'blahaj.png';
+  el.alt = ':3';
+
+  // Size varies a bit per shark so the pile looks organic
+  const size = SHARK_W * (0.82 + Math.random() * 0.42);
+  // How many columns fit across the screen
+  const cols = Math.floor(window.innerWidth / (size * 0.78));
+  // Which column slot (0-based), assigned round-robin with jitter
+  const col = (sharkCount - 1) % cols;
+  const row = Math.floor((sharkCount - 1) / cols);
+  // X position: column slot + small random nudge
+  const xNudge = (Math.random() - 0.5) * size * 0.22;
+  const x = col * (window.innerWidth / cols) + (window.innerWidth / cols - size) / 2 + xNudge;
+  // Each row of sharks sits ~60% of the shark height above the previous row
+  const sharkVisualH = size * 0.48; // blahaj.png is roughly 2:1 landscape
+  const rowH = sharkVisualH * SHARK_OVERLAP;
+  // Bottom offset: row 0 sits at bottom, row 1 sits higher, etc.
+  const settledBottom = row * rowH;
+
+  const flip = Math.random() > 0.5 ? 'scaleX(-1)' : 'scaleX(1)';
+  const tilt = (Math.random() - 0.5) * 10;
+
+  el.style.cssText = `
+    position:absolute;
+    width:${size}px;
+    left:${x}px;
+    bottom:-${size}px;
+    transform:${flip} rotate(${tilt}deg);
+    filter:drop-shadow(0 -4px 18px rgba(91,206,250,0.45));
+    transition:bottom 700ms cubic-bezier(0.22,1,0.36,1), opacity 200ms ease;
+    opacity:0;
+  `;
+  invasionEl.appendChild(el);
+
+  // Animate in
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    el.style.bottom = settledBottom + 'px';
+    el.style.opacity = '1';
+  }));
+
+  // Reset the 15s dismiss countdown every time a new shark appears
+  resetDismissTimer();
+}
+
+// Wheel handler: accumulate scroll, spawn sharks on threshold
+window.addEventListener('wheel', e => {
+  if (current !== LAST_PAGE) return;
+  if (e.deltaY <= 0) return;
+  e.preventDefault();
+  scrollPool += e.deltaY;
+  while (scrollPool >= SCROLL_PER_SHARK) {
+    scrollPool -= SCROLL_PER_SHARK;
+    spawnOneShark();
+  }
+}, { passive: false });
+
+// Touch: treat swipe-up distance as scroll
+let blahajTouchY = 0;
+window.addEventListener('touchstart', ev => { blahajTouchY = ev.touches[0].clientY; }, { passive: true });
+window.addEventListener('touchmove', ev => {
+  if (current !== LAST_PAGE) return;
+  const dy = blahajTouchY - ev.touches[0].clientY;
+  if (dy <= 0) return;
+  blahajTouchY = ev.touches[0].clientY;
+  scrollPool += dy * 2;
+  while (scrollPool >= SCROLL_PER_SHARK) {
+    scrollPool -= SCROLL_PER_SHARK;
+    spawnOneShark();
+  }
+}, { passive: true });
+
+// Arrow key: spawn a burst of 3 per press
+window.addEventListener('keydown', e => {
+  if (current !== LAST_PAGE) return;
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+    for (let i = 0; i < 3; i++) spawnOneShark();
+  }
+});
 </script>
 </body>
 </html>
